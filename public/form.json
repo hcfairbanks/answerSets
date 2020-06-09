@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "required": [
+    "RoleName",
+     "PrimaryBusiness"
+  ],"properties": {
+    "RoleName": {
+      "enum": ["​Customer Success", "Fullstack Engineer", "Product Manager"],
+      "title": "What is the name of the role?"
+    },
+    "PrimaryBusiness": {
+      "enum": ["Accounting", "Software development", "Landscaping"],
+      "title": "What is your primary business?"
+    },
+    "TechnicalBackground": {
+      "type": "boolean",
+      "title": "Technical Background"
+    }
+  },"allOf": [
+      {
+        "if": {
+            "properties": { "RoleName": { "const": "Fullstack Engineer" } }
+          },
+          "then": {
+              "required": ["TechnicalBackground"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "RoleName": { "const": "Product Manager" }, "PrimaryBusiness": {"const":"Software development"} }
+          },
+          "then": {
+            "required": ["TechnicalBackground"]
+          }
+        }
+    ]
+  }
